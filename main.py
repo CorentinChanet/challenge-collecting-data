@@ -23,8 +23,6 @@ def main():
         threads.append(t)
         time.sleep(0.5 + random.random())
         i += 1
-        time.sleep(0.5 + random.random())
-
 
 
     #raw_to_csv()
