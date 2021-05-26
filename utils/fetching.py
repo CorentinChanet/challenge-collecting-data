@@ -1,21 +1,31 @@
 import time
 import random
 from selenium import webdriver
+from threading import Thread
 
-def fetching_urls():
-    driver = webdriver.Safari()
+def fetching_urls(url: str, driver) -> list:
 
-    list_url = "https://www.immoweb.be/en/search/house/for-sale?countries=BE&page=1&orderBy=relevance"
+    driver.get(url)
 
-    driver.get(list_url)
-    time.sleep(2)
-
+    urls = []
     container = driver.find_element_by_id("main-content")
     for li in container.find_elements_by_tag_name("a"):
-        print(li.get_attribute("href"))
+        urls.append(li.get_attribute("href"))
 
+    return urls
 
-    driver.close()
-
-def fetching_data():
+def fetching_data(urls: list, driver:str) -> dict:
     pass
+
+class FetchThread(Thread):
+    def __init__(self, driver, urls):
+        Thread.__init__(self)
+        self.urls = urls
+        self.data = []
+        self.drivers = {"safari": webdriver.Safari(), "chrome": webdriver.Chrome(), "firefox": webdriver.Firefox()}
+        self.driver = self.drivers[driver.lower()]
+
+    def run(self):
+        for url in self.urls:
+            self.data.append(fetching_data(url))
+            time.sleep(1+random.random())
