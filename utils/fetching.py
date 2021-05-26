@@ -34,11 +34,11 @@ def fetching_urls(url: str, driver_name) -> list:
     return urls
 
 def fetching_data(urls:list):
-    driver = webdriver.Safari()
+    #driver = webdriver.Safari()
     for url in urls:
-        driver.get(url)
+        #driver.get(url)
 
-        item_url = 'https://www.immoweb.be/en/classified/house/for-sale/uccle/1180/9310971?searchId=60acaf3b768b5'
+        item_url = url
         r = requests.get(item_url)
         print(item_url, r.status_code)
         item_soup = BeautifulSoup(r.content,'html5lib')
@@ -57,7 +57,8 @@ def fetching_data(urls:list):
         item_price_all = item_parse['price']
         #item_transcactions = item_parse['transactions']
 
-        item_adress = item_property['location']['street'] + item_property['location']['number']
+        item_street = item_property['location']['street']
+        item_street_number = item_property['location']['number']
         item_property_type = item_property['type']
         item_property_subtype = item_property['subtype']
         item_price = item_price_all['mainValue']
@@ -65,7 +66,7 @@ def fetching_data(urls:list):
         item_number_of_rooms = item_property['bedroomCount']
         item_area = item_property['netHabitableSurface']
 
-        print(item_property_type, item_property_subtype, item_price, item_number_of_rooms, item_area)
+        print(f'\nPropery type and subtype is {item_property_type} {item_property_subtype}, located at {item_street} {item_street_number}, price is {item_price}, it has {item_number_of_rooms} rooms and {item_area} area')
         #item_kitchen = item_property['kitchen']
         #item_furnished
         #item_open_fire
@@ -77,7 +78,7 @@ def fetching_data(urls:list):
         #item_situation
         time.sleep(2)
         print("DATA FETCHED! : " + str(url))
-        driver.close()
+        #driver.close()
 
 
 
