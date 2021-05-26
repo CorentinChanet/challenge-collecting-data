@@ -1,5 +1,5 @@
 import time
-from utils.output import backup, cleaning
+from utils.output import raw_to_csv, clean_to_csv, cleaning
 from utils.fetching import fetching_data, fetching_urls
 from selenium import webdriver
 
@@ -14,9 +14,11 @@ def main():
 
     fetching_data()
 
-    backup()
+    raw_to_csv()
 
     cleaning()
+
+    clean_to_csv()
 
     driver.close()
 
