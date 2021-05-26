@@ -7,6 +7,9 @@ import time
 import random
 from selenium import webdriver
 from threading import Thread
+from bs4 import BeautifulSoup
+import requests
+import json
 
 def select_driver(name):
     if name.lower() == 'safari':
@@ -33,66 +36,59 @@ def fetching_urls(url: str, driver_name) -> list:
 
     return urls
 
-def fetching_data(urls:list):
-    #driver = webdriver.Safari()
-    for url in urls:
-        #driver.get(url)
+def fetching_data(url:str):
 
-        item_url = url
-        r = requests.get(item_url)
-        print(item_url, r.status_code)
-        item_soup = BeautifulSoup(r.content,'html5lib')
-        #print(item_soup)
-        item_script = item_soup.select('#container-main-content div script')
-        # item_string is bs4.element.Tag
-        item_string = str(item_script[0])
-        # so we cut the useful part of it to get a JSON string
-        item_JSON = item_string[64:-19]
-        # converting string to a Python dictionary
-        item_parse = json.loads(item_JSON)
-        #print(item_parse)
-        item_id = item_parse['id']
-        item_seller = item_parse['customers']
-        item_property = item_parse['property']
-        item_price_all = item_parse['price']
-        #item_transcactions = item_parse['transactions']
+    item_url = url
+    r = requests.get(item_url)
+    time.sleep(random.random())
 
-        item_street = item_property['location']['street']
-        item_street_number = item_property['location']['number']
-        item_property_type = item_property['type']
-        item_property_subtype = item_property['subtype']
-        item_price = item_price_all['mainValue']
-        #item_type_of_sale = [item_transcactions['subtype'],item_transcactions['lifeAnnuity']]
-        item_number_of_rooms = item_property['bedroomCount']
-        item_area = item_property['netHabitableSurface']
+    item_soup = BeautifulSoup(r.content)
+    #print(item_soup)
+    item_script = item_soup.select('#container-main-content div script')
+    # item_string is bs4.element.Tag
+    item_string = str(item_script[0])
+    # so we cut the useful part of it to get a JSON string
+    item_JSON = item_string[64:-19]
+    # converting string to a Python dictionary
+    item_parse = json.loads(item_JSON)
+    #print(item_parse)
+    item_id = item_parse['id']
+    item_seller = item_parse['customers']
+    item_property = item_parse['property']
+    item_price_all = item_parse['price']
+    #item_transcactions = item_parse['transactions']
 
-        print(f'\nPropery type and subtype is {item_property_type} {item_property_subtype}, located at {item_street} {item_street_number}, price is {item_price}, it has {item_number_of_rooms} rooms and {item_area} area')
-        #item_kitchen = item_property['kitchen']
-        #item_furnished
-        #item_open_fire
-        #item_terrace
-        #item_garden
-        #item_geo
-        #item_facades
-        #item_swimming_pool
-        #item_situation
-        time.sleep(2)
-        print("DATA FETCHED! : " + str(url))
-        #driver.close()
+    item_property_type = item_property['type']
+    item_property_subtype = item_property['subtype']
+    item_price = item_price_all['mainValue']
+    #item_type_of_sale = [item_transcactions['subtype'],item_transcactions['lifeAnnuity']]
+    item_number_of_rooms = item_property['bedroomCount']
+    item_area = item_property['netHabitableSurface']
+
+    return item_property_type, item_property_subtype, item_price, item_number_of_rooms, item_area
+    #item_kitchen = item_property['kitchen']
+    #item_furnished
+    #item_open_fire
+    #item_terrace
+    #item_garden
+    #item_geo
+    #item_facades
+    #item_swimming_pool
+    #item_situation
 
 
+class FetchThread(Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs={}):
+        Thread.__init__(self, group, target, name, args)
+        self.data = []
+        self._target = target
+        self._args = args
+        self._kwargs = kwargs
 
-# class FetchThread(Thread):
-#     def __init__(self, driver, urls):
-#         Thread.__init__(self)
-#         self.urls = urls
-#         self.data = []
-#         self.driver = driver
-#
-#     def run(self):
-#         for url in self.urls:
-#             # code to fetch data from script
-#             print('THREAD STARTED')
-#             time.sleep(1+random.random())
-#
-#         self.driver.close()
+    def run(self):
+        for arg in self._args:
+            for url in arg:
+                try:
+                    self.data.append(self._target(url))
+                except:
+                    print("Failed to parse url: " + str(url))
