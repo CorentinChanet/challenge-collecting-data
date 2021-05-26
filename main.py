@@ -1,6 +1,6 @@
 import time
 import random
-from utils.output import raw_to_csv, clean_to_csv, cleaning
+from utils.output import raw_to_csv, clean_to_csv, cleaning, _threads_to_dict
 from utils.fetching import fetching_urls, fetching_data, FetchThread
 from selenium import webdriver
 from threading import Thread
@@ -24,6 +24,7 @@ def main():
         time.sleep(0.5 + random.random())
         i += 1
 
+    print(_threads_to_dict(threads))
 
     #raw_to_csv()
 
