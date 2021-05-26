@@ -11,12 +11,13 @@ import json
 threads = list()
 
 def main():
+    start = time.time()
 
     driver_name = input("Select webdriver: safari, chrome or firefox")
 
     for property_type in ("house", "apartment"):
         i=1
-        while i<3:
+        while i<50:
             url = f"https://www.immoweb.be/en/search/{property_type}/for-sale?countries=BE&page={i}&orderBy=newest"
             urls = fetching_urls(url, driver_name)
             t = FetchThread(name='Test_{}'.format(i), target=fetching_data, args=(urls,))
@@ -25,8 +26,9 @@ def main():
             time.sleep(0.5 + random.random())
             i += 1
 
-    print(_threads_to_dict(threads))
-
+    result =  _threads_to_dict(threads)
+    print(time.time() - start)
+    return result
     #raw_to_csv()
 
     #cleaning()
@@ -39,4 +41,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    result = main()
