@@ -14,15 +14,16 @@ def main():
 
     driver_name = input("Select webdriver: safari, chrome or firefox")
 
-    i=1
-    while i<3:
-        url = f"https://www.immoweb.be/en/search/house-and-apartment/for-sale?countries=BE&page={i}&orderBy=newest"
-        urls = fetching_urls(url, driver_name)
-        t = FetchThread(name='Test_{}'.format(i), target=fetching_data, args=(urls,))
-        t.start() # fetching_data(urls)
-        threads.append(t)
-        time.sleep(0.5 + random.random())
-        i += 1
+    for property_type in ("house", "apartment"):
+        i=1
+        while i<3:
+            url = f"https://www.immoweb.be/en/search/{property_type}/for-sale?countries=BE&page={i}&orderBy=newest"
+            urls = fetching_urls(url, driver_name)
+            t = FetchThread(name='Test_{}'.format(i), target=fetching_data, args=(urls,))
+            t.start() # fetching_data(urls)
+            threads.append(t)
+            time.sleep(0.5 + random.random())
+            i += 1
 
     print(_threads_to_dict(threads))
 
