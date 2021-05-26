@@ -3,8 +3,8 @@ import time
 def _threads_to_dict(threads):
     items = []
     for thread in threads:
-        fields = ("Type", "Subtype", "Price", "Number of rooms", "Plot size", "Fully equipped kitchen",
-                  "Furnished", "Open Fire", "Terrace", "Area", "Number of facades", "Swimming pool", "State")
+        fields = ("Type", "Subtype", "Price", "Number of rooms", "Habitable Surface", "Fully equipped kitchen",
+                  "Furnished", "Open Fire", "Terrace", "Plot size", "Number of facades", "Swimming pool", "State")
         while thread.is_alive():
             time.sleep(1)
 
