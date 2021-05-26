@@ -57,7 +57,8 @@ def fetching_data(url:str):
     item_property = item_parse['property']
     item_price_all = item_parse['price']
     #item_transcactions = item_parse['transactions']
-
+    item_street = item_property['location']['street']
+    item_street_number = item_property['location']['number']
     item_property_type = item_property['type']
     item_property_subtype = item_property['subtype']
     item_price = item_price_all['mainValue']
@@ -65,6 +66,8 @@ def fetching_data(url:str):
     item_number_of_rooms = item_property['bedroomCount']
     item_area = item_property['netHabitableSurface']
 
+    print(f'\nPropery type and subtype is {item_property_type} {item_property_subtype}, located at {item_street} {item_street_number}, price is {item_price}, it has {item_number_of_rooms} rooms and {item_area} area')
+    item_kitchen = item_property['kitchen']
     return item_property_type, item_property_subtype, item_price, item_number_of_rooms, item_area
     #item_kitchen = item_property['kitchen']
     #item_furnished

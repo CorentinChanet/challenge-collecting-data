@@ -14,7 +14,7 @@ house_links = []
 element_ul = driver.find_element_by_xpath(element_XPATH)
 for a in element_ul.find_elements_by_tag_name('a'):
     house_links.append(a.get_attribute('href'))
-    print(house_links)
+print(house_links)
 
 driver.close()
 
