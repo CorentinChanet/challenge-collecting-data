@@ -1,7 +1,6 @@
 import time
-from utils.csv_converter import convert_to_csv
+from utils.csv_converter import raw_to_csv, clean_to_csv
 import random
-from utils.output import raw_to_csv, clean_to_csv, cleaning
 from utils.fetching import fetching_urls, fetching_data, FetchThread, select_driver
 from selenium import webdriver
 from threading import Thread
@@ -46,19 +45,8 @@ def main():
     print(time.time() - start)
     driver.close()
 
-    convert_to_csv(data)
-
-
-    #raw_to_csv()
-
-    #cleaning()
-
-    #clean_to_csv()
-
-    #driver.close()
-
-    pass
-
+    df = raw_to_csv(data)
+    clean_to_csv(df)
 
 if __name__ == '__main__':
     main()
