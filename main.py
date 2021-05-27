@@ -1,4 +1,5 @@
 import time
+from utils.csv_converter import convert_to_csv
 import random
 from utils.output import raw_to_csv, clean_to_csv, cleaning
 from utils.fetching import fetching_urls, fetching_data, FetchThread, select_driver
@@ -30,7 +31,17 @@ def main():
             time.sleep(0.3)
             i += 1
 
+    data = []
+
+    for thread in threads:
+        while thread.is_alive():
+            time.sleep(0.5)
+        data.extend(thread.data)
+
     driver.close()
+
+    return convert_to_csv(data)
+
 
     #raw_to_csv()
 
