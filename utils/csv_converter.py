@@ -1,9 +1,10 @@
 import pandas as pd
 import os.path
+from typing import List, Dict, Union, Optional
 
 parent_path = os.path.abspath("../")
 
-def convert_to_csv(list_of_properties):
+def convert_to_csv(list_of_properties: List[Dict[str, Optional[Union[str,float,int]]]]) -> None:
     '''
     a function that will create a CSV file with the provided list of properties ( estates )
     user needs to specify file name, the file is created in the root directory
