@@ -61,7 +61,6 @@ def fetching_data(url:str) -> dict:
     fields = tuple(_dict.keys())
 
     item_soup = BeautifulSoup(r.content)
-    #print(item_soup)
     item_script = item_soup.select('#container-main-content div script')
     # item_string is bs4.element.Tag
     item_string = str(item_script[0])
