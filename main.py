@@ -1,7 +1,7 @@
 import time
 import random
-from utils.output import raw_to_csv, clean_to_csv, cleaning, _threads_to_dict
-from utils.fetching import fetching_urls, fetching_data, FetchThread
+from utils.output import raw_to_csv, clean_to_csv, cleaning
+from utils.fetching import fetching_urls, fetching_data, FetchThread, select_driver
 from selenium import webdriver
 from threading import Thread
 from bs4 import BeautifulSoup
@@ -11,24 +11,27 @@ import json
 threads = list()
 
 def main():
-    start = time.time()
-
+    # Let the user chose the appropriate browser
     driver_name = input("Select webdriver: safari, chrome or firefox")
+    driver = select_driver(driver_name)
 
+    # Checks for both houses and apartments
     for property_type in ("house", "apartment"):
         i=1
-        while i<50:
+        while i<3:
             url = f"https://www.immoweb.be/en/search/{property_type}/for-sale?countries=BE&page={i}&orderBy=newest"
-            urls = fetching_urls(url, driver_name)
+            # Fetches a batch of url from the i-th search results page
+            urls = fetching_urls(url, driver)
+            # Initialize and starts a thread to fetch data from urls
             t = FetchThread(name='Test_{}'.format(i), target=fetching_data, args=(urls,))
             t.start() # fetching_data(urls)
+            # Append the thread in the pool
             threads.append(t)
-            time.sleep(0.5 + random.random())
+            time.sleep(0.3)
             i += 1
 
-    result =  _threads_to_dict(threads)
-    print(time.time() - start)
-    return result
+    driver.close()
+
     #raw_to_csv()
 
     #cleaning()
@@ -41,4 +44,4 @@ def main():
 
 
 if __name__ == '__main__':
-    result = main()
+    main()
