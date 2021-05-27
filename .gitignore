@@ -1,6 +1,10 @@
 geckodriver.log
 src/
+src_new/
 .vscode/
+.vscode_new
+*.code-workspace
+data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
