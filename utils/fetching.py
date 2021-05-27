@@ -19,31 +19,31 @@ def select_driver(name):
     else:
         return webdriver.Firefox()
 
-def fetching_urls(url: str, driver_name) -> list:
-    driver = select_driver(driver_name)
-    driver.get(url)
 
-    urls = []
-    container = driver.find_element_by_id("main-content")
-    for li in container.find_elements_by_tag_name("a"):
-        try:
-            urls.append(str(li.get_attribute("href")))
-        except:
-            print("No href found - passing over element")
-            continue
 
-    driver.close()
-
-    return urls
+# it would be great to have check function like this
+# but for now I have no idea if it works
+# I am afk till 10, do you want to fix it, guys?
+# I want to do it but don't want to slow you down
+"""
+def check(dict_:dict,key_:object):
+    for key, value in dict_:
+        if key == key_:
+            return value
+        else: return None
+"""
 
 def fetching_data(url:str):
-
+    # so instead of writing 
+    # item_street = item_property['location']['street']
+    # getting not found values and interrupting fetching
+    # we would get none value or actual value
+    
     item_url = url
     r = requests.get(item_url)
-    time.sleep(random.random())
-
-    item_soup = BeautifulSoup(r.content)
-    #print(item_soup)
+    #print(item_url, r.status_code)
+    item_soup = BeautifulSoup(r.content, 'html5lib')
+    # print(item_soup)
     item_script = item_soup.select('#container-main-content div script')
     # item_string is bs4.element.Tag
     item_string = str(item_script[0])
@@ -51,12 +51,14 @@ def fetching_data(url:str):
     item_JSON = item_string[64:-19]
     # converting string to a Python dictionary
     item_parse = json.loads(item_JSON)
-    #print(item_parse)
+    # print(item_parse)
     item_id = item_parse['id']
     item_seller = item_parse['customers']
     item_property = item_parse['property']
     item_price_all = item_parse['price']
-    #item_transcactions = item_parse['transactions']
+    item_transcactions = item_parse['transaction']
+
+    
     item_street = item_property['location']['street']
     item_street_number = item_property['location']['number']
     item_property_type = item_property['type']
@@ -65,19 +67,24 @@ def fetching_data(url:str):
     #item_type_of_sale = [item_transcactions['subtype'],item_transcactions['lifeAnnuity']]
     item_number_of_rooms = item_property['bedroomCount']
     item_area = item_property['netHabitableSurface']
-
-    print(f'\nPropery type and subtype is {item_property_type} {item_property_subtype}, located at {item_street} {item_street_number}, price is {item_price}, it has {item_number_of_rooms} rooms and {item_area} area')
+    # INSTALLED, USA_HYPER_EQUIPPED, USA_INSTALLED
     item_kitchen = item_property['kitchen']
+    item_kitchen_check = item_property['kitchen']['type']
+    if "equipped" in item_kitchen_check:
+        item_kitchen = 'yes'
+    
+
+    print(f'\nPropery type and subtype is {item_property_type} {item_property_subtype}, located at {item_street} {item_street_number}, price is {item_price}, it has {item_number_of_rooms} rooms and {item_area} area, kitchen is {item_kitchen_check}')
+    
     return item_property_type, item_property_subtype, item_price, item_number_of_rooms, item_area
-    #item_kitchen = item_property['kitchen']
-    #item_furnished
-    #item_open_fire
-    #item_terrace
-    #item_garden
-    #item_geo
-    #item_facades
-    #item_swimming_pool
-    #item_situation
+    # item_furnished
+    # item_open_fire
+    # item_terrace
+    # item_garden
+    # item_geo
+    # item_facades
+    # item_swimming_pool
+    # item_situation
 
 
 class FetchThread(Thread):
