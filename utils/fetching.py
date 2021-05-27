@@ -37,7 +37,6 @@ def fetching_urls(url: str, driver: webdriver) -> list:
         try:
             urls.append(str(li.get_attribute("href")))
         except:
-            print("No href found - passing over element")
             continue
 
     return urls
@@ -88,7 +87,7 @@ def fetching_data(url:str) -> dict:
         try:
             _dict[field] = item_property[field]
         except:
-            print(f"Unable to fetch the feature {field} from script")
+            continue
 
     try:
         _dict['kitchen'] = item_property['kitchen']['type']
@@ -133,4 +132,4 @@ class FetchThread(Thread):
                 try:
                     self.data.append(self._target(url))
                 except:
-                    print("Failed to parse url: " + str(url))
+                    continue
