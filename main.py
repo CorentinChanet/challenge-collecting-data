@@ -16,10 +16,12 @@ def main():
     driver_name = input("Select webdriver: safari, chrome or firefox")
     driver = select_driver(driver_name)
 
+    start = time.time()
+
     # Checks for both houses and apartments
     for property_type in ("house", "apartment"):
         i=1
-        while i<3:
+        while i<300:
             url = f"https://www.immoweb.be/en/search/{property_type}/for-sale?countries=BE&page={i}&orderBy=newest"
             # Fetches a batch of url from the i-th search results page
             urls = fetching_urls(url, driver)
@@ -28,19 +30,23 @@ def main():
             t.start() # fetching_data(urls)
             # Append the thread in the pool
             threads.append(t)
-            time.sleep(0.3)
+            time.sleep(0.1)
+            print(f"{property_type} batch number {i} : DONE")
             i += 1
 
+    print(time.time() - start)
     data = []
 
     for thread in threads:
         while thread.is_alive():
             time.sleep(0.5)
         data.extend(thread.data)
+        print(f"Thread of length {len(thread.data)} completed")
 
+    print(time.time() - start)
     driver.close()
 
-    return convert_to_csv(data)
+    convert_to_csv(data)
 
 
     #raw_to_csv()
