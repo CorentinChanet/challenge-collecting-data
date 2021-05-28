@@ -33,9 +33,9 @@ def fetching_urls(url: str, driver: webdriver) -> list:
 
     urls = []
     container = driver.find_element_by_id("main-content")
-    for li in container.find_elements_by_tag_name("a"):
+    for link in container.find_elements_by_tag_name("a"):
         try:
-            urls.append(str(li.get_attribute("href")))
+            urls.append(str(link.get_attribute("href")))
         except:
             continue
 
@@ -61,7 +61,6 @@ def fetching_data(url:str) -> dict:
     fields = tuple(_dict.keys())
 
     item_soup = BeautifulSoup(r.content)
-    #print(item_soup)
     item_script = item_soup.select('#container-main-content div script')
     # item_string is bs4.element.Tag
     item_string = str(item_script[0])

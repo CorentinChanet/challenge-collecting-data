@@ -1,5 +1,5 @@
 import time
-from utils.csv_converter import raw_to_csv, clean_to_csv
+from utils.csv_converter import raw_to_csv
 import random
 from utils.fetching import fetching_urls, fetching_data, FetchThread, select_driver
 from selenium import webdriver
@@ -45,8 +45,7 @@ def main():
     print(time.time() - start)
     driver.close()
 
-    df = raw_to_csv(data)
-    clean_to_csv(df)
+    raw_to_csv(data)
 
 if __name__ == '__main__':
     main()
