@@ -15,12 +15,14 @@ def main():
     driver_name = input("Select webdriver: safari, chrome or firefox")
     driver = select_driver(driver_name)
 
+    n = int(input("Enter the number (max 333) of search pages for houses and apartments that will be scraped : "))
+
     start = time.time()
 
     # Checks for both houses and apartments
     for property_type in ("house", "apartment"):
-        i=1
-        while i<300:
+        i = 1
+        while i <= n:
             url = f"https://www.immoweb.be/en/search/{property_type}/for-sale?countries=BE&page={i}&orderBy=newest"
             # Fetches a batch of url from the i-th search results page
             urls = fetching_urls(url, driver)
