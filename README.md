@@ -8,7 +8,7 @@
   <h2 align="center">Collecting data challenge</h2>
   <p align="center">
     <a href="https://github.com/CorentinChanet/challenge-collecting-data">
-    <img src="https://avatars.githubusercontent.com/u/26875751?s=200&v=4" alt="Logo" width="80" height="80">
+    <img src="https://github.com/CorentinChanet/challenge-collecting-data/blob/readme/logo_Bouman_3.31.png" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">
@@ -36,12 +36,18 @@ in Belgium. Once the information is fetched it will be cleaned and stored in a c
 pip3 install -r requirements.txt
 ```
 
-<h2> Starting and running </h2>
+<h2> Starting and running</h2>
 
-After starting, program will ask you to select a webdriver for Selenium, based on your system. You may also specify how many search pages you want to scrape thus limiting the number of real estates you need to have information about. Then a Selenium webdriver would grab a list of links via Immoweb search page starting from the most newer real estate. After collecting individual links (about 30 per page), our program will make http request to each fetching the data with BeautifulSoup. The flow of our program designed in a such way that you it will not crash or interrupt if the link or information on it would be incomplete or corrupted in any way. Fetching information is done with multi-threadding to be on par with Selenium scraping. We also use random timeout to not be noticed or from the site.
+After starting, our program will ask you to select a webdriver for Selenium, based on your system. You may also specify how many search pages you want to scrape thus limiting the number of real estates you need to have information about. 
+
+Then a Selenium webdriver would grab a list of links via Immoweb search page starting from the most newer real estate. After collecting individual links (about 30 per page), our program will make http request to each fetching the data with BeautifulSoup. 
+
+The flow of our program designed in a such way that it will not crash or interrupt if the link or information on it would be incomplete or corrupted in any way. Fetching information is done with multi-threadding to be on par with Selenium scraping. We also use random timeout to not be noticed or banned from the site.
 
 <h2> Output </h2>
-Our program will give these fields about each property: locality, type of property (house or apartment, bungalow, chalet, mansion...), price, type of sale (exclusion or life sale), number of rooms, area, kitchen type, garden, terrace and swimmng pool availability as well as some additional properties. Values would be stored as strings and numbers (including True and False indicating 1 and 0 correspondingly).
+Our program will give these fields about each property: locality, type of property (house or apartment, bungalow, chalet, mansion...), price, type of sale (exclusion or life sale), number of rooms, area, kitchen type, garden, terrace and swimmng pool availability as well as some additional properties. 
+
+Values would be stored as strings and numbers (including True and False indicating 1 and 0 correspondingly). 
 Missing or impropriate values would be converting to None in a dataframe resulting in am empty cell in a csv output file.
 
 <h2> Contributors </h2>
@@ -63,14 +69,11 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- LICENSE -->
 ## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
 
 <!-- CONTACT -->
 ## Contact
 Please, contact any of contributor via GitHub
-
-Project Link: [Collecting data challenge](https://github.com/CorentinChanet/challenge-collecting-data)
 
 ## Acknowledgements
 Thank you, Bouman! :)
