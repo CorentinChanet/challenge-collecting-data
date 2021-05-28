@@ -76,7 +76,7 @@ Distributed under the MIT License.
 
 <!-- CONTACT -->
 ## Contact
-Please, contact any of contributor via GitHub
+Please, contact any of the authors via GitHub.
 
 ## Acknowledgements
 Thank you, Bouman! :)
