@@ -53,7 +53,7 @@ Our program will give these fields about each property: locality, type of proper
 Values would be stored as strings and numbers (including True and False indicating 1 and 0 correspondingly). 
 Missing or impropriate values would be converting to None in a data frame resulting in am an empty cell in a CSV output file.
 
-<h2> Contributors </h2>
+<h2> Authors </h2>
 <a href="https://github.com/hakanErgin"><strong>Hakan</strong></a>  
 <a href="https://github.com/CorentinChanet"><strong>Corentin</strong></a>  
 <a href="https://github.com/nicesoul"><strong>Vadym</strong></a>  
