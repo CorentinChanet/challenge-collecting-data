@@ -36,17 +36,19 @@ in Belgium. Once the information is fetched it will be cleaned and stored in a c
 pip3 install -r requirements.txt
 ```
 
-<h2> Getting started </h2>
+<h2> Starting and running </h2>
 
-You may specify how many property you
-(adding None values, converting to binary values, etc.)
+After starting, program will ask you to select a webdriver for Selenium, based on your system. You may also specify how many search pages you want to scrape thus limiting the number of real estates you need to have information about. Then a Selenium webdriver would grab a list of links via Immoweb search page starting from the most newer real estate. After collecting individual links (about 30 per page), our program will make http request to each fetching the data with BeautifulSoup. The flow of our program designed in a such way that you it will not crash or interrupt if the link or information on it would be incomplete or corrupted in any way. Fetching information is done with multi-threadding to be on par with Selenium scraping. We also use random timeout to not be noticed or from the site.
 
+<h2> Output </h2>
+Our program will give these fields about each property: locality, type of property (house or apartment, bungalow, chalet, mansion...), price, type of sale (exclusion or life sale), number of rooms, area, kitchen type, garden, terrace and swimmng pool availability as well as some additional properties. Values would be stored as strings and numbers (including True and False indicating 1 and 0 correspondingly).
+Missing or impropriate values would be converting to None in a dataframe resulting in am empty cell in a csv output file.
 
 <h2> Contributors </h2>
 <a href="https://github.com/hakanErgin"><strong>Hakan</strong></a>  
 <a href="https://github.com/CorentinChanet"><strong>Corentin</strong></a>  
 <a href="https://github.com/nicesoul"><strong>Vadym</strong></a>  
-<h2> Timeline </h2>
+
 
 <!-- CONTRIBUTING -->
 ## Contributing
