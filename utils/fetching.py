@@ -33,9 +33,9 @@ def fetching_urls(url: str, driver: webdriver) -> list:
 
     urls = []
     container = driver.find_element_by_id("main-content")
-    for li in container.find_elements_by_tag_name("a"):
+    for link in container.find_elements_by_tag_name("a"):
         try:
-            urls.append(str(li.get_attribute("href")))
+            urls.append(str(link.get_attribute("href")))
         except:
             continue
 
