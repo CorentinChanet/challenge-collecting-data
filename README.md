@@ -22,10 +22,10 @@
 <h2> Description </h2>
 
 Our program will scrape a real estate website ([Immoweb](https://www.immoweb.be/en)) for data about houses and apartments
-in Belgium. Once the information is fetched it will be cleaned and stored in a csv file.
+in Belgium. Once the information is fetched it will be cleaned and stored in a CSV file.
 
 
-<h3> Installation </h3>
+<h2> Installation </h2>
 
 1. Clone the repo
 2. Install the required libraries
@@ -38,17 +38,20 @@ pip3 install -r requirements.txt
 
 <h2> Starting and running</h2>
 
-After starting, our program will ask you to select a webdriver for Selenium, based on your system. You may also specify how many search pages you want to scrape thus limiting the number of real estates you need to have information about. 
+After starting, our program will ask you to select a web driver for Selenium, based on your system, and provide a name for an output file. You may also specify how many search pages you want to scrape thus limiting the number of real estate you need to have information about.
 
-Then a Selenium webdriver would grab a list of links via Immoweb search page starting from the most newer real estate. After collecting individual links (about 30 per page), our program will make http request to each fetching the data with BeautifulSoup. 
+Then a Selenium web driver would grab a list of links via the Immoweb search page starting from the most newer real estate. After collecting individual links (about 30 per page), our program will make an http request to each fetching the data with BeautifulSoup.
 
-The flow of our program designed in a such way that it will not crash or interrupt if the link or information on it would be incomplete or corrupted in any way. Fetching information is done with multi-threadding to be on par with Selenium scraping. We also use random timeout to not be noticed or banned from the site.
+The flow of our program is designed in a such way that it will not crash or interrupt if the link or information on it would be incomplete or corrupted in any way. Fetching information is done with multi-threading to be on par with Selenium scraping. We also use a random timeout to not be noticed or banned from the site.
 
 <h2> Output </h2>
-Our program will give these fields about each property: locality, type of property (house or apartment, bungalow, chalet, mansion...), price, type of sale (exclusion or life sale), number of rooms, area, kitchen type, garden, terrace and swimmng pool availability as well as some additional properties. 
+
+Data would be outputted in 2 files: raw_data.csv and clean_data.csv.
+
+Our program will give these fields about each property: locality, type of property (house or apartment, bungalow, chalet, mansion...), price, type of sale (exclusion or life sale), number of rooms, area, kitchen type, garden, terrace, and swimming pool availability as well as some additional properties.
 
 Values would be stored as strings and numbers (including True and False indicating 1 and 0 correspondingly). 
-Missing or impropriate values would be converting to None in a dataframe resulting in am empty cell in a csv output file.
+Missing or impropriate values would be converting to None in a data frame resulting in am an empty cell in a CSV output file.
 
 <h2> Contributors </h2>
 <a href="https://github.com/hakanErgin"><strong>Hakan</strong></a>  
@@ -59,7 +62,7 @@ Missing or impropriate values would be converting to None in a dataframe resulti
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
