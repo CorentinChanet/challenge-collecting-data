@@ -8,7 +8,7 @@
 <h2 align="center">Collecting data challenge</h2>
 <p align="center"><a href="https://github.com/CorentinChanet/challenge-collecting-data">
 <img src="https://github.com/CorentinChanet/challenge-collecting-data/blob/readme/logo_Bouman_3.31.png" alt="Logo" width="200" height="200"></a></p>
-<h3 align="center">Web scraping group project as a part of Data&AI training at <a href="https://github.com/becodeorg"><strong>BeCode</strong></a></h3><hr>
+<h3 align="center">Web scraping group project as a part of Data&AI training at <a href="https://github.com/becodeorg"><strong>BeCode</strong></a></h3><br><br>
 
 ## Description
 
